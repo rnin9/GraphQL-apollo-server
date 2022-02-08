@@ -9,6 +9,16 @@ const typeDefs = gql`
         new
         used
     }
+    enum BloodType {
+        A
+        B
+        AB
+        O
+    }
+    enum Sex {
+        male
+        female
+    }
 `
 
 module.exports = typeDefs

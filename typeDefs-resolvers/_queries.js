@@ -8,6 +8,8 @@ const typeDefs = gql`
         software: Software,
         givens: [Given],
         tools: [Tool],
+        people: [People],
+        person: People,
         supplies: [Supply]
     }
 `
