@@ -9,6 +9,16 @@ const typeDefs = gql`
         givens: [Given],
         tools: [Tool],
         people: [People],
+        peopleFiltered(
+            team: Int,
+            sex: Sex,
+            blood_type: BloodType,
+            from: String,
+        ):[People],
+        peoplePaginated(
+            page: Int!,
+            per_page: Int!
+        ):[People],
         person: People,
         supplies: [Supply]
     }
