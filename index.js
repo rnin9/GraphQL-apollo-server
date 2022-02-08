@@ -9,6 +9,19 @@ const typeDefs = gql`
      equipments: [Equipment]
      supplies: [Supply]
  }
+ type Mutation{
+    createEquipment(
+        id: String,
+        used_by: String,
+        count: Int,
+        new_or_used: String): Equipment
+    updateEquipment(
+        id: String,
+        used_by: String,
+        count: Int,
+        new_or_used: String): Equipment
+    deleteEquipment(id: String): Equipment
+ }
  type Team{
      id: Int
      manager: String
@@ -33,23 +46,63 @@ const typeDefs = gql`
 //서비스의 action들을 함수로 지정. 요청에 따라 데이터를 반환, 입력, 수정, 삭제
 const resolvers = {
     Query: {
-        teams: () => database.teams.map((team)=>{
-            team.supplies = database.supplies.filter((supply)=>{
+        teams: () => database.teams.map((team) => {
+            team.supplies = database.supplies.filter((supply) => {
                 return supply.team === team.id
             })
             return team
         }),
         //id기준으로 team 1개 가져오기 + supply
-        team: (parent, args, context, info) => database.teams.filter((team) => {
-            if(team.id === args.id){
-                team.supplies = database.supplies.filter((supply)=>{
-                    return supply.team === team.id
-                })
-            }
-            return team.id === args.id
-        })[0],
+        // team: (parent, args, context, info) => database.teams.filter((team) => {
+        //     if (team.id === args.id) {
+        //         team.supplies = database.supplies.filter((supply) => {
+        //             return supply.team === team.id
+        //         })
+        //     }
+        //     return team.id === args.id
+        // })[0],
+            team: (parents, args, context, info) =>{
+                return database.teams.filter((team)=>{
+                    return team.id === args.id
+                }).map((team)=>{
+                    team.supplies = database.supplies.filter((supply)=>{
+                        return supply.team === team.id
+                    })
+                    return team
+                })[0]
+            },
         equipments: () => database.equipments,
         supplies: () => database.supplies
+    },
+    Mutation: {
+        deleteEquipment: (parents, args, context, info) => {
+            const deletedEquipment = database.equipments.filter((e) => {
+                return e.id === args.id
+            })[0];
+            database.equipments = database.equipments.filter((e) => {
+                return e.id !== args.id
+            })
+            return deletedEquipment
+        },
+        createEquipment: (parents, args, context, info) => {
+            // const newEquipment = { id: args.id, used_by: args.used_by, count: args.count, new_or_used: args.new_or_used };
+            database.equipments.push(args);
+            return args;
+        },
+        updateEquipment: (parents, args, context, info) =>{
+            // return database.equipments.filter((e)=>{
+            //     if(e.id === args.id){
+            //         Object.assign(e,args)
+            //     }
+            //     return e.id === args.id
+            // })[0]
+                return database.equipments.filter((equip)=>{
+                    return equip.id === args.id
+                }).map((equip)=>{
+                    Object.assign(equip,args)
+                    return equip
+                })[0]
+        }
     }
 }
 const server = new ApolloServer({ typeDefs, resolvers })
