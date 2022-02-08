@@ -41,6 +41,7 @@ module.exports = {
 //       id
 //       used_by
 //       ... on Equipment {
+//         id
 //         count
 //         new_or_used
 //       }
@@ -50,4 +51,4 @@ module.exports = {
 //       }
 //     }
 //   }
-// ID같은 경우 겹칠 수 있으므로, Interface로 뺴는게 나은듯?
+//
