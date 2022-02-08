@@ -33,3 +33,21 @@ module.exports = {
     typeDefs: typeDefs,
     resolvers: resolvers
 }
+
+
+// query {
+//     tools {
+//       __typename
+//       id
+//       used_by
+//       ... on Equipment {
+//         count
+//         new_or_used
+//       }
+//       ... on Software {
+//         developed_by
+//         description
+//       }
+//     }
+//   }
+// ID같은 경우 겹칠 수 있으므로, Interface로 뺴는게 나은듯?
