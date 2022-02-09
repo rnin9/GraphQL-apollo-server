@@ -8,6 +8,8 @@ const softwares = require('./typeDefs-resolvers/softwares')
 const givens = require('./typeDefs-resolvers/givens')
 const tools = require('./typeDefs-resolvers/tool')
 const people = require('./typeDefs-resolvers/people')
+const roles = require('./typeDefs-resolvers/roles')
+const teams = require('./typeDefs-resolvers/teams')
 
 // GraphQL 명세에 사용될 데이터, 요청의 타입 지정 gql(template literal tag)로 생성됨
 const typeDefs = [
@@ -19,7 +21,9 @@ const typeDefs = [
     softwares.typeDefs,
     givens.typeDefs,
     tools.typeDefs,
-    people.typeDefs
+    people.typeDefs,
+    roles.typeDefs,
+    teams.typeDefs
 ]
 
 //서비스의 action들을 함수로 지정. 요청에 따라 데이터를 반환, 입력, 수정, 삭제
@@ -29,7 +33,9 @@ const resolvers = [
     softwares.resolvers,
     givens.resolvers,
     tools.resolvers,
-    people.resolvers
+    people.resolvers,
+    roles.resolvers,
+    teams.resolvers
 ]
 const server = new ApolloServer({ typeDefs, resolvers })
 // typedef와 resolver를 인자로 받아, Apollo Server를 생성

@@ -29,9 +29,7 @@ const typeDefs = gql`
 const resolvers = {
     Query: {
         people: (parents, args) => dbWorks.getPeople(args),
-        person: (parents, args) => dbWorks.getPeople(args)[0],
-        peopleFiltered: (parents, args) => dbWorks.getPeople(args),
-        peoplePaginated: (parents, args) => dbWorks.getPeople(args),
+        person: (parents, args) => dbWorks.getPeople(args)[0]
     },
     Mutation: {
         postPerson: (parents, args) => dbWorks.postPerson(args)
