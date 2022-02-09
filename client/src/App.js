@@ -7,15 +7,14 @@ import Roles from './components/roles'
 import Teams from './components/teams'
 import People from './components/people'
 
-const client = new ApolloClient({
-  uri: `http://localhost:4000`,
-  cache: new InMemoryCache()
-  //한번 받은 데이터를 필요이상으로 관리하지 않아도 되게끔 cache 사용
-})
 
 function App() {
-
-  const [menu, setMenu] = useState('Roles')
+  const client = new ApolloClient({
+    uri: `http://localhost:4000`,
+    cache: new InMemoryCache()
+    //한번 받은 데이터를 필요이상으로 관리하지 않아도 되게끔 cache 사용
+  })
+  const [menu, setMenu] = useState('Teams')
 
   let mainComp = {
     Roles: (<Roles />),
