@@ -3,8 +3,14 @@ GraphQL 서버 구축 연습
 
 
 ```bash
+#client Setting 
+$ cd client
 $ npm install
-$ npm start
+$ npm run start
+
+#server Setting, on Root
+$ npm install
+$ npm run start
 ```
 
 
