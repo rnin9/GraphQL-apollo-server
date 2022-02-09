@@ -9,7 +9,8 @@ const typeDefs = gql`
 `
 const resolvers = {
     Query: {
-        supplies: (parents, args) => dbWorks.getSupplies(args)
+        supplies: (parents, args) => dbWorks.getSupplies(args),
+        supply: (parents, args) => dbWorks.getSupplies(args)[0]
     },
     Mutation: {
         deleteSupply: (parents, args) => dbWorks.deleteItem('supplies', args)

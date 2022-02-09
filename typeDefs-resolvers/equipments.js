@@ -21,7 +21,8 @@ const typeDefs = gql`
 const resolvers = {
     Query: {
         equipments: (parent, args) => dbWorks.getEquipments(args),
-        equipmentAdvs: (parents, args) =>
+        equipment: (parent, args) => dbWorks.getEquipments(args)[0],
+        equipmentAdvs: (parent, args) =>
             dbWorks.getEquipments(args)
                 .map((equipment) => {
                     if (equipment.used_by === 'developer') {
@@ -33,6 +34,8 @@ const resolvers = {
     },
     Mutation: {
         deleteEquipment: (parent, args) => dbWorks.deleteItem('equipments', args),
+        postEquipment: (parent,args) => dbWorks.postEquipment(args),
+        increaseEquipment: (parent, args) => dbWorks.increaseEquipment(args)
     }
 }
 
